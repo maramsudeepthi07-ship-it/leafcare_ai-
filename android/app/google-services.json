@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "502896404495",
+    "project_id": "leafcare-ai-31866",
+    "storage_bucket": "leafcare-ai-31866.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502896404495:android:65f910bbceb0dcbc9f5b7a",
+        "android_client_info": {
+          "package_name": "com.example.leafcare_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNYJ-G5tPi6yVds0VleRIQYPDNsl2_RQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
