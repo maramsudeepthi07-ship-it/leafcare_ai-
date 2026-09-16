@@ -85,3 +85,30 @@ leafcare_ai/
 ├── .gitignore
 ├── pubspec.yaml
 └── README.md
+---
+
+## 📸 Screenshots
+
+### 🔐 Farmer Login
+
+![Farmer Login](screenshots/login.png)
+
+### 🏠 Home Screen
+
+![Home Screen](screenshots/home.png)
+
+### 📷 Plant Scanning
+
+![Scan Screen](screenshots/scan.png)
+
+### 🌿 Plant Identification Result
+
+![Plant Identification Result](screenshots/plant_result.png)
+
+### 🦠 Disease Detection Result
+
+![Disease Detection Result](screenshots/disease_result.png)
+
+### 💊 Treatment Recommendation
+
+![Treatment Recommendation](screenshots/treatment_result.png)
