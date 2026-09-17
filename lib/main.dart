@@ -10,7 +10,7 @@ import 'data/plant_data.dart';
 import 'firebase_options.dart';
 import 'models/plant.dart';
 
-const String apiUrl = 'http://localhost:8000/predict';
+const String apiUrl = 'https://leafcare-ai-backend.onrender.com/predict';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
