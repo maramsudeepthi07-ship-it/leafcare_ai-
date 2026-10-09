@@ -37,10 +37,24 @@ class LeafCareApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2E7D32),
+          seedColor: const Color(0xFF1B4332), // Dark, premium PlantX green
+          primary: const Color(0xFF2D6A4F),
+          secondary: const Color(0xFF52B788),
+          surface: Colors.white,
         ),
-        scaffoldBackgroundColor: const Color(0xFFF3F9F3),
-        fontFamily: 'Arial',
+        scaffoldBackgroundColor: const Color(0xFFF7F9F7),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFF7F9F7),
+          elevation: 0,
+          centerTitle: false,
+          iconTheme: IconThemeData(color: Color(0xFF1B4332)),
+          titleTextStyle: TextStyle(
+            color: Color(0xFF1B4332),
+            fontSize: 24,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.5,
+          ),
+        ),
       ),
       home: const LoginScreen(),
     );
@@ -71,7 +85,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
   bool obscurePassword = true;
 
   @override
@@ -89,6 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please enter email and password.'),
+          behavior: SnackBarBehavior.floating,
         ),
       );
       return;
@@ -96,161 +110,176 @@ class _LoginScreenState extends State<LoginScreen> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => const MainNavigationScreen(),
-      ),
+      MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(25),
-            child: Column(
-              children: [
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFC8E6C9),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.eco,
-                    size: 65,
-                    color: Color(0xFF2E7D32),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                height: 280,
+                decoration: const BoxDecoration(
+                  color: Color(0xFF1B4332),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
                   ),
                 ),
-
-                const SizedBox(height: 25),
-
-                const Text(
-                  'LeafCare AI',
-                  style: TextStyle(
-                    fontSize: 34,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1B5E20),
-                  ),
-                ),
-
-                const SizedBox(height: 8),
-
-                const Text(
-                  'Smart plant identification and leaf health analysis',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                  ),
-                ),
-
-                const SizedBox(height: 35),
-
-                TextField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    prefixIcon: const Icon(Icons.email_outlined),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(18),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                TextField(
-                  controller: passwordController,
-                  obscureText: obscurePassword,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: const Icon(Icons.lock_outline),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          obscurePassword = !obscurePassword;
-                        });
-                      },
-                      icon: Icon(
-                        obscurePassword
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.energy_savings_leaf,
+                        size: 70,
+                        color: Colors.white,
                       ),
                     ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(18),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 25),
-
-                SizedBox(
-                  width: double.infinity,
-                  height: 58,
-                  child: FilledButton(
-                    onPressed: login,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: const Color(0xFF2E7D32),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                    ),
-                    child: const Text(
-                      'Login',
+                    const SizedBox(height: 20),
+                    const Text(
+                      'PlantX',
                       style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 38,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.2,
+                        color: Colors.white,
                       ),
                     ),
-                  ),
+                    const Text(
+                      'Your personal botanical assistant',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white70,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ],
                 ),
-
-                const SizedBox(height: 15),
-
-SizedBox(
-  width: double.infinity,
-  height: 58,
-  child: OutlinedButton(
-   onPressed: () {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => const MainNavigationScreen(),
-    ),
-  );
-},
-    child: const Text(
-      'Farmer Login',
-      style: TextStyle(
-        fontSize: 17,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  ),
-),
-
-const SizedBox(height: 15),
-
-const Text(
-  'Demo login: enter any email and password',
-  style: TextStyle(
-    color: Colors.grey,
-    fontSize: 13,
-  ),
-),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      'Welcome Back',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1B4332),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Sign in to track your plant health',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 35),
+                    TextField(
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        hintText: 'Email address',
+                        prefixIcon: const Icon(Icons.email_outlined, color: Color(0xFF2D6A4F)),
+                        filled: true,
+                        fillColor: const Color(0xFFF7F9F7),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: passwordController,
+                      obscureText: obscurePassword,
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF2D6A4F)),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              obscurePassword = !obscurePassword;
+                            });
+                          },
+                          icon: Icon(
+                            obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                            color: const Color(0xFF2D6A4F),
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: const Color(0xFFF7F9F7),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 35),
+                    ElevatedButton(
+                      onPressed: login,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1B4332),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Text(
+                        'Farmer Login',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF2D6A4F),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -294,26 +323,31 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         },
         destinations: const [
           NavigationDestination(
+            
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),
             label: 'Home',
           ),
           NavigationDestination(
+            
             icon: Icon(Icons.document_scanner_outlined),
             selectedIcon: Icon(Icons.document_scanner),
             label: 'Scan',
           ),
           NavigationDestination(
+            
             icon: Icon(Icons.local_florist_outlined),
             selectedIcon: Icon(Icons.local_florist),
             label: 'Plants',
           ),
           NavigationDestination(
+            
             icon: Icon(Icons.history_outlined),
             selectedIcon: Icon(Icons.history),
             label: 'History',
           ),
           NavigationDestination(
+            
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
             label: 'Profile',
@@ -334,186 +368,182 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text(
-          'LeafCare AI',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          'Good morning!',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1B4332)),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.language),
+            icon: const Icon(Icons.language, color: Color(0xFF1B4332)),
             onPressed: () {
               showLanguageDialog(context);
             },
           ),
+          const SizedBox(width: 8),
+          const CircleAvatar(
+            backgroundColor: Color(0xFFE8F5E9),
+            child: Icon(Icons.person, color: Color(0xFF1B4332)),
+          ),
+          const SizedBox(width: 16),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(18, 20, 18, 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(25),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               decoration: BoxDecoration(
-                color: const Color(0xFF2E7D32),
-                borderRadius: BorderRadius.circular(28),
+                color: const Color(0xFFF7F9F7),
+                borderRadius: BorderRadius.circular(20),
               ),
-              child: const Column(
+              child: const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search plants, diseases...',
+                  border: InputBorder.none,
+                  icon: Icon(Icons.search, color: Color(0xFF2D6A4F)),
+                ),
+              ),
+            ),
+            const SizedBox(height: 25),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF1B4332), Color(0xFF2D6A4F)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF1B4332).withOpacity(0.3),
+                    blurRadius: 15,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.eco,
-                    color: Colors.white,
-                    size: 45,
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    'Welcome to LeafCare AI',
+                  const Icon(Icons.document_scanner, color: Colors.white, size: 36),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Identify & Heal',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 28,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Identify plants and analyze leaf health using AI.',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 16,
-                      height: 1.4,
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Scan a leaf to identify the plant or detect diseases instantly.',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const ScanLeafScreen()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF1B4332),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     ),
+                    child: const Text('Scan Now', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
             ),
-
-            const SizedBox(height: 25),
-
+            const SizedBox(height: 30),
             const Text(
-              'What would you like to do?',
+              'Explore',
               style: TextStyle(
-                fontSize: 23,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1B5E20),
+                color: Color(0xFF1B4332),
               ),
             ),
-
-            const SizedBox(height: 15),
-
+            const SizedBox(height: 16),
             Row(
               children: [
-                Expanded(
-                  child: _HomeCard(
-                    icon: Icons.document_scanner,
-                    title: 'Scan Leaf',
-                    subtitle: 'Analyze with AI',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ScanLeafScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(width: 14),
                 Expanded(
                   child: _HomeCard(
                     icon: Icons.local_florist,
-                    title: 'Plants',
-                    subtitle: 'Browse plants',
+                    title: 'My Plants',
+                    subtitle: 'Collection',
+                    color: const Color(0xFFE8F5E9),
+                    iconColor: const Color(0xFF1B4332),
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => const PlantsScreen(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const PlantsScreen()),
                       );
                     },
                   ),
                 ),
-              ],
-            ),
-
-            const SizedBox(height: 14),
-
-            Row(
-              children: [
+                const SizedBox(width: 16),
                 Expanded(
                   child: _HomeCard(
                     icon: Icons.history,
                     title: 'History',
-                    subtitle: 'Previous scans',
+                    subtitle: 'Past Scans',
+                    color: const Color(0xFFFFF3E0),
+                    iconColor: const Color(0xFFE65100),
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => const HistoryScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: _HomeCard(
-                    icon: Icons.person,
-                    title: 'Profile',
-                    subtitle: 'Your settings',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ProfileScreen(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const HistoryScreen()),
                       );
                     },
                   ),
                 ),
               ],
             ),
-
-            const SizedBox(height: 25),
-
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(22),
-              ),
-              child: const Column(
-                children: [
-                  Icon(
-                    Icons.health_and_safety_outlined,
-                    color: Color(0xFF2E7D32),
-                    size: 45,
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _HomeCard(
+                    icon: Icons.notifications_active_outlined,
+                    title: 'Reminders',
+                    subtitle: 'Water & Care',
+                    color: const Color(0xFFE3F2FD),
+                    iconColor: const Color(0xFF1565C0),
+                    onTap: () {},
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    'AI-Powered Leaf Health',
-                    style: TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B5E20),
-                    ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: _HomeCard(
+                    icon: Icons.person_outline,
+                    title: 'Profile',
+                    subtitle: 'Settings',
+                    color: const Color(0xFFF3E5F5),
+                    iconColor: const Color(0xFF6A1B9A),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                      );
+                    },
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Upload a clear leaf image to identify the plant and check for possible health conditions.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+            const SizedBox(height: 30),
           ],
         ),
       ),
@@ -521,70 +551,62 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-/* ============================================================
-   HOME CARD
-   ============================================================ */
-
 class _HomeCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subtitle;
+  final Color color;
+  final Color iconColor;
   final VoidCallback onTap;
 
   const _HomeCard({
     required this.icon,
     required this.title,
     required this.subtitle,
+    required this.color,
+    required this.iconColor,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(24),
       onTap: onTap,
+      borderRadius: BorderRadius.circular(24),
       child: Container(
-        height: 175,
-        padding: const EdgeInsets.all(18),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: color,
           borderRadius: BorderRadius.circular(24),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 12,
-              offset: const Offset(0, 5),
-            ),
-          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 55,
-              height: 55,
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFFE8F5E9),
-                borderRadius: BorderRadius.circular(17),
+                color: Colors.white.withOpacity(0.6),
+                shape: BoxShape.circle,
               ),
-              child: Icon(
-                icon,
-                color: const Color(0xFF2E7D32),
-                size: 28,
-              ),
+              child: Icon(icon, color: iconColor, size: 28),
             ),
-            const Spacer(),
+            const SizedBox(height: 20),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 19,
+              style: TextStyle(
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: iconColor.withOpacity(0.8),
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 4),
             Text(
               subtitle,
-              style: const TextStyle(color: Colors.grey),
+              style: TextStyle(
+                color: iconColor.withOpacity(0.6),
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
@@ -733,7 +755,7 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                     backgroundColor: Color(0xFFE8F5E9),
                     child: Icon(
                       Icons.camera_alt,
-                      color: Color(0xFF2E7D32),
+                      color: Color(0xFF1B4332),
                     ),
                   ),
                   title: const Text('Take a Photo'),
@@ -749,7 +771,7 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                     backgroundColor: Color(0xFFE8F5E9),
                     child: Icon(
                       Icons.photo_library,
-                      color: Color(0xFF2E7D32),
+                      color: Color(0xFF1B4332),
                     ),
                   ),
                   title: const Text('Choose from Gallery'),
@@ -914,7 +936,7 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                           Icon(
                             Icons.document_scanner_outlined,
                             size: 72,
-                            color: Color(0xFF2E7D32),
+                            color: Color(0xFF1B4332),
                           ),
                           SizedBox(height: 15),
                           Text(
@@ -970,12 +992,12 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                   ),
                   style: FilledButton.styleFrom(
                     backgroundColor:
-                        const Color(0xFF2E7D32),
+                        const Color(0xFF1B4332),
                     disabledBackgroundColor:
                         const Color(0xFF81A984),
                     shape: RoundedRectangleBorder(
                       borderRadius:
-                          BorderRadius.circular(18),
+                          BorderRadius.circular(24),
                     ),
                     textStyle: const TextStyle(
                       fontSize: 17,
@@ -1005,13 +1027,13 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                   ),
                   style: OutlinedButton.styleFrom(
                     foregroundColor:
-                        const Color(0xFF2E7D32),
+                        const Color(0xFF1B4332),
                     side: const BorderSide(
                       color: Color(0xFF78977A),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius:
-                          BorderRadius.circular(18),
+                          BorderRadius.circular(24),
                     ),
                   ),
                 ),
@@ -1055,7 +1077,7 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                           const Color(0xFF789AC0),
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(18),
+                            BorderRadius.circular(24),
                       ),
                     ),
                   ),
@@ -1081,14 +1103,14 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius:
-                      BorderRadius.circular(22),
+                      BorderRadius.circular(28),
                 ),
                 child: const Column(
                   children: [
                     Icon(
                       Icons.health_and_safety_outlined,
                       size: 45,
-                      color: Color(0xFF2E7D32),
+                      color: Color(0xFF1B4332),
                     ),
                     SizedBox(height: 12),
                     Text(
@@ -1096,7 +1118,7 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1B5E20),
+                        color: Color(0xFF2D6A4F),
                       ),
                     ),
                     SizedBox(height: 8),
@@ -1119,7 +1141,7 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1B5E20),
+                  color: Color(0xFF2D6A4F),
                 ),
               ),
 
@@ -1143,7 +1165,7 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius:
-                        BorderRadius.circular(18),
+                        BorderRadius.circular(24),
                   ),
                   child: ListTile(
                     contentPadding:
@@ -1156,7 +1178,7 @@ class _ScanLeafScreenState extends State<ScanLeafScreen> {
                           Color(0xFFE8F5E9),
                       child: Icon(
                         Icons.eco,
-                        color: Color(0xFF2E7D32),
+                        color: Color(0xFF1B4332),
                       ),
                     ),
                     title: Text(
@@ -1439,7 +1461,7 @@ final prevention =
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1B5E20),
+                color: Color(0xFF2D6A4F),
               ),
             ),
 
@@ -1792,7 +1814,7 @@ if (!diseaseUnavailable && prevention.isNotEmpty) ...[
                     Colors.orange.shade50,
 
                 borderRadius:
-                    BorderRadius.circular(18),
+                    BorderRadius.circular(24),
 
                 border: Border.all(
                   color:
@@ -2039,7 +2061,7 @@ class _AlternativePlant
                     FontWeight.bold,
 
                 color:
-                    Color(0xFF2E7D32),
+                    Color(0xFF1B4332),
               ),
             ),
           ),
@@ -2066,7 +2088,7 @@ class _AlternativePlant
                     fontWeight:
                         FontWeight.bold,
                     color:
-                        Color(0xFF1B5E20),
+                        Color(0xFF2D6A4F),
                   ),
                 ),
 
@@ -2157,7 +2179,7 @@ class _ResultRow
           child: Icon(
             icon,
             color:
-                const Color(0xFF2E7D32),
+                const Color(0xFF1B4332),
           ),
         ),
 
@@ -2244,7 +2266,7 @@ class _ResultSection
         color: Colors.white,
 
         borderRadius:
-            BorderRadius.circular(22),
+            BorderRadius.circular(28),
       ),
 
       child: Column(
@@ -2277,7 +2299,7 @@ class _ResultSection
                     fontWeight:
                         FontWeight.bold,
                     color:
-                        Color(0xFF1B5E20),
+                        Color(0xFF2D6A4F),
                   ),
                 ),
               ),
@@ -2333,7 +2355,7 @@ class PlantsScreen extends StatelessWidget {
             ),
             shape: RoundedRectangleBorder(
               borderRadius:
-                  BorderRadius.circular(18),
+                  BorderRadius.circular(24),
             ),
             child: ListTile(
               contentPadding:
@@ -2348,7 +2370,7 @@ class PlantsScreen extends StatelessWidget {
                 ),
                 child: const Icon(
                   Icons.local_florist,
-                  color: Color(0xFF2E7D32),
+                  color: Color(0xFF1B4332),
                   size: 30,
                 ),
               ),
@@ -2476,7 +2498,7 @@ class _PlantInformationScreenState
                     ),
                     child: const Icon(
                       Icons.eco,
-                      color: Color(0xFF2E7D32),
+                      color: Color(0xFF1B4332),
                       size: 55,
                     ),
                   ),
@@ -2491,7 +2513,7 @@ class _PlantInformationScreenState
                     style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B5E20),
+                      color: Color(0xFF2D6A4F),
                     ),
                   ),
 
@@ -2525,7 +2547,7 @@ class _PlantInformationScreenState
                       'Traditional Plant',
                       style: TextStyle(
                         color:
-                            Color(0xFF2E7D32),
+                            Color(0xFF1B4332),
                         fontWeight:
                             FontWeight.bold,
                       ),
@@ -2632,7 +2654,7 @@ class _InformationCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius:
-            BorderRadius.circular(22),
+            BorderRadius.circular(28),
       ),
       child: Column(
         crossAxisAlignment:
@@ -2643,7 +2665,7 @@ class _InformationCard extends StatelessWidget {
               Icon(
                 icon,
                 color:
-                    const Color(0xFF2E7D32),
+                    const Color(0xFF1B4332),
                 size: 27,
               ),
 
@@ -2657,7 +2679,7 @@ class _InformationCard extends StatelessWidget {
                     fontWeight:
                         FontWeight.bold,
                     color:
-                        Color(0xFF1B5E20),
+                        Color(0xFF2D6A4F),
                   ),
                 ),
               ),
@@ -2774,7 +2796,7 @@ class _HistoryScreenState
                       child: Icon(
                         Icons.eco,
                         color:
-                            Color(0xFF2E7D32),
+                            Color(0xFF1B4332),
                       ),
                     ),
                     title: Text(
@@ -2829,7 +2851,10 @@ class ProfileScreen
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Color(0xFF1B4332)),
+        title: Text('Profile', style: const TextStyle(color: Color(0xFF1B4332), fontWeight: FontWeight.bold)),
       ),
       body: SingleChildScrollView(
         padding:
@@ -2843,7 +2868,7 @@ class ProfileScreen
               child: Icon(
                 Icons.person,
                 size: 55,
-                color: Color(0xFF2E7D32),
+                color: Color(0xFF1B4332),
               ),
             ),
 
@@ -2897,7 +2922,7 @@ class ProfileScreen
                       const Icon(
                     Icons.eco,
                     color:
-                        Color(0xFF2E7D32),
+                        Color(0xFF1B4332),
                   ),
                 );
               },
@@ -3005,7 +3030,10 @@ class FarmerLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Farmer Login'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Color(0xFF1B4332)),
+        title: Text('Farmer Login', style: const TextStyle(color: Color(0xFF1B4332), fontWeight: FontWeight.bold)),
       ),
       body: const Center(
         child: Text(
